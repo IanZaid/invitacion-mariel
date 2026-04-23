@@ -8,7 +8,6 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* --- CSS MÁGICO REFORZADO --- */
         html, body {
             cursor: url('https://img.icons8.com/fluency/32/magic-wand.png'), auto;
             overflow-x: hidden;
@@ -31,7 +30,6 @@
             position: fixed;
             pointer-events: none;
             z-index: 9998;
-            font-family: serif;
             animation: sparkleFall linear forwards;
         }
         @keyframes sparkleFall {
@@ -48,12 +46,17 @@
         .gentle-float { animation: gentleFloat 3s ease-in-out infinite; }
         .fade-up { animation: fadeUp 0.8s ease-out forwards; opacity:0; }
         @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+        
+        .counter-btn {
+            width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+            border:1px solid #f0c4e0; background:#fff; color:#e91e90; font-weight: bold;
+        }
     </style>
 </head>
 <body class="h-full castle-bg">
 
     <audio id="bgMusic" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/audio/2022/01/21/audio_3107073289.mp3" type="audio/mpeg">
     </audio>
     <audio id="magicSound">
         <source src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" type="audio/mpeg">
@@ -65,10 +68,13 @@
             <h1 class="fade-up mb-1" style="font-family:'Great Vibes',cursive; color:#e91e90; font-size:4.5rem; animation-delay:0.2s;">Mariel</h1>
             <p class="text-pink-300 text-lg fade-up mb-10" style="animation-delay:0.3s;">👑 Fiesta de Princesas 👑</p>
 
-            <div class="princess-card rounded-3xl p-6 max-w-sm w-full shadow-2xl fade-up mb-10 border border-pink-100" style="animation-delay:0.5s;">
+            <div class="princess-card rounded-3xl p-6 max-w-sm w-full shadow-2xl fade-up mb-10 border border-pink-100" style="animation-delay:0.4s;">
                 <div class="space-y-4">
                     <div class="flex items-center justify-center gap-3 text-pink-600">
                         <i data-lucide="calendar"></i> <span class="font-bold text-xl">23 de Mayo</span>
+                    </div>
+                    <div class="flex items-center justify-center gap-3 text-pink-600">
+                        <i data-lucide="clock"></i> <span class="font-bold text-xl">1:00 PM</span>
                     </div>
                     <div class="flex items-center justify-center gap-3 text-pink-600">
                         <i data-lucide="map-pin"></i> <span class="font-bold text-xl">Rancho La Chula</span>
@@ -77,7 +83,7 @@
                 </div>
             </div>
 
-            <button id="rsvpButton" class="btn-princess text-white font-bold py-5 px-14 rounded-full text-2xl transition-all active:scale-95 fade-up" style="animation-delay:0.6s;">
+            <button id="rsvpButton" class="btn-princess text-white font-bold py-5 px-14 rounded-full text-2xl transition-all active:scale-95 fade-up" style="animation-delay:0.5s;">
                 Confirmar Asistencia
             </button>
         </div>
@@ -85,27 +91,52 @@
         <div id="view-form" class="min-h-full flex flex-col items-center justify-center px-4 py-8 hidden relative z-10">
             <div class="princess-card rounded-3xl p-7 max-w-sm w-full shadow-lg space-y-6">
                 <h2 class="text-pink-600 text-center" style="font-family:'Great Vibes',cursive; font-size:3rem;">Registro Real</h2>
-                <input type="text" id="guest-name" placeholder="Tu Nombre" class="w-full rounded-xl px-4 py-4 border-2 border-pink-100 outline-none focus:border-pink-500">
                 
-                <div class="space-y-3">
-                   <div class="flex justify-between items-center bg-pink-50 p-3 rounded-xl">
-                       <span class="font-bold">Adultos</span>
-                       <div class="flex items-center gap-3">
-                           <button class="bg-white px-3 border rounded" onclick="changeCount('adults',-1)">-</button>
-                           <span id="count-adults" class="font-bold w-4 text-center">1</span>
-                           <button class="bg-white px-3 border rounded" onclick="changeCount('adults',1)">+</button>
-                       </div>
-                   </div>
+                <div>
+                    <label class="block text-pink-400 text-sm font-bold mb-2">TU NOMBRE</label>
+                    <input type="text" id="guest-name" placeholder="Ej. Familia Trujillo" class="w-full rounded-xl px-4 py-4 border-2 border-pink-100 outline-none focus:border-pink-500 text-gray-700">
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center bg-pink-50/50 p-3 rounded-2xl">
+                        <span class="font-bold text-pink-700">👨‍👩‍👧 Adultos</span>
+                        <div class="flex items-center gap-3">
+                            <button class="counter-btn" onclick="changeCount('adults', -1)">-</button>
+                            <span id="count-adults" class="font-bold text-pink-600 w-4 text-center">1</span>
+                            <button class="counter-btn" onclick="changeCount('adults', 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center bg-blue-50/30 p-3 rounded-2xl">
+                        <span class="font-bold text-blue-700">👦 Niños</span>
+                        <div class="flex items-center gap-3">
+                            <button class="counter-btn" style="color:#3b82f6; border-color:#dbeafe" onclick="changeCount('boys', -1)">-</button>
+                            <span id="count-boys" class="font-bold text-blue-500 w-4 text-center">0</span>
+                            <button class="counter-btn" style="color:#3b82f6; border-color:#dbeafe" onclick="changeCount('boys', 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center bg-pink-50/30 p-3 rounded-2xl">
+                        <span class="font-bold text-pink-500">👧 Niñas</span>
+                        <div class="flex items-center gap-3">
+                            <button class="counter-btn" onclick="changeCount('girls', -1)">-</button>
+                            <span id="count-girls" class="font-bold text-pink-500 w-4 text-center">0</span>
+                            <button class="counter-btn" onclick="changeCount('girls', 1)">+</button>
+                        </div>
+                    </div>
                 </div>
 
-                <button id="sendWspButton" class="btn-princess text-white font-bold py-4 rounded-full w-full text-xl"> 💌 Confirmar por WhatsApp </button>
+                <button id="sendWspButton" class="btn-princess text-white font-bold py-4 rounded-full w-full text-xl flex items-center justify-center gap-2">
+                    💌 Confirmar por WhatsApp
+                </button>
                 <button onclick="showInvite()" class="text-pink-400 text-sm w-full">← Regresar</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Lógica de partículas corregida
+        const counts = { adults: 1, boys: 0, girls: 0 };
+        const myPhone = "522281276797";
+
+        // Estrellas cayendo
         function createSparkle() {
             const sparkle = document.createElement('div');
             sparkle.className = 'sparkle-particle';
@@ -131,7 +162,6 @@
             setTimeout(() => trail.remove(), 700);
         });
 
-        // Audio y Navegación
         const magicSound = document.getElementById('magicSound');
         const bgMusic = document.getElementById('bgMusic');
         let musicStarted = false;
@@ -139,7 +169,7 @@
         document.getElementById('rsvpButton').addEventListener('click', () => {
             magicSound.play();
             if (!musicStarted) {
-                bgMusic.volume = 0.2;
+                bgMusic.volume = 0.4;
                 bgMusic.play();
                 musicStarted = true;
             }
@@ -154,16 +184,25 @@
             document.getElementById('view-invite').classList.remove('hidden');
         }
 
-        const counts = { adults: 1 };
-        function changeCount(t, d) {
-            counts[t] = Math.max(1, counts[t] + d);
-            document.getElementById('count-' + t).innerText = counts[t];
+        function changeCount(type, delta) {
+            counts[type] = Math.max(0, counts[type] + delta);
+            if (type === 'adults') counts[type] = Math.max(1, counts[type]);
+            document.getElementById('count-' + type).innerText = counts[type];
         }
 
         document.getElementById('sendWspButton').addEventListener('click', () => {
-            const name = document.getElementById('guest-name').value;
-            const msg = encodeURIComponent(`🎀 ¡Hola! Confirmo asistencia para: ${name}. Somos ${counts.adults} adultos.`);
-            window.open(`https://wa.me/522281276797?text=${msg}`);
+            const name = document.getElementById('guest-name').value.trim();
+            if(!name) return alert("Por favor, escribe tu nombre 💕");
+            
+            let msg = `🎀 *Confirmación Mágica* 🎀\n\n`;
+            msg += `👑 Fiesta de *Mariel*\n`;
+            msg += `📝 Nombre: *${name}*\n`;
+            msg += `👨‍👩‍👧 Adultos: *${counts.adults}*\n`;
+            if(counts.boys > 0) msg += `👦 Niños: *${counts.boys}*\n`;
+            if(counts.girls > 0) msg += `👧 Niñas: *${counts.girls}*\n`;
+            msg += `\n¡Ahí estaremos! 🏰✨`;
+            
+            window.open(`https://wa.me/${myPhone}?text=${encodeURIComponent(msg)}`);
         });
 
         lucide.createIcons();
