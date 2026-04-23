@@ -9,131 +9,118 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         @keyframes gentleFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        @keyframes glowPulse { 0%, 100% { opacity: 0.4; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.1); } }
-        @keyframes particleOrbit { 0% { transform: rotate(0deg) translateX(40px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(40px) rotate(-360deg); } }
+        @keyframes glowPulse { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.2); } }
+        @keyframes particleOrbit { 0% { transform: rotate(0deg) translateX(45px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(45px) rotate(-360deg); } }
         @keyframes sparkle { 0%,100%{opacity:0;transform:scale(0)} 50%{opacity:1;transform:scale(1)} }
         @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes crownBounce { 0%,100%{transform:rotate(-3deg)} 50%{transform:rotate(3deg)} }
-
+        
         .glow-pulse { animation: glowPulse 4s ease-in-out infinite; }
         .particle { animation: particleOrbit 6s linear infinite; }
         .gentle-float { animation: gentleFloat 3s ease-in-out infinite; }
         .sparkle { position:absolute; width:8px; height:8px; background:gold; border-radius:50%; animation: sparkle 2s ease-in-out infinite; }
         .fade-up { animation: fadeUp 0.8s ease-out forwards; opacity:0; }
-        .crown-bounce { animation: crownBounce 2s ease-in-out infinite; }
 
-        .princess-card { backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.8); border: 1px solid #f9a8d4; }
+        .princess-card { backdrop-filter: blur(12px); background-color: rgba(255, 255, 255, 0.85); border: 1px solid rgba(249, 168, 212, 0.5); }
         .btn-princess {
             background: linear-gradient(135deg, #e91e90, #ff6fb5);
-            transition: all 0.3s;
             box-shadow: 0 4px 20px rgba(233,30,144,0.4);
         }
-        .btn-princess:hover { transform:translateY(-2px); box-shadow:0 6px 25px rgba(233,30,144,0.5); }
-        .input-princess { border: 2px solid #f0c4e0; outline: none; }
-        .input-princess:focus { border-color: #e91e90; box-shadow: 0 0 0 3px rgba(233,30,144,0.15); }
         .castle-bg { background: linear-gradient(180deg, #fce4f3 0%, #fdf2f8 30%, #fff5fc 100%); }
         .counter-btn {
             width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-            font-weight:700; font-size:1.2rem; cursor:pointer; transition:all 0.2s; border:2px solid #f0c4e0;
-            background:#fff; color:#e91e90;
+            border:2px solid #f0c4e0; background:#fff; color:#e91e90;
         }
-
-        .princess-container { position: relative; cursor: pointer; transition: transform 0.3s ease; }
-        .princess-container:hover { transform: translateY(-8px) scale(1.05); }
+        .princess-container { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100px; height: 100px; }
     </style>
 </head>
 <body class="h-full">
     <div id="app" class="w-full h-full overflow-auto castle-bg" style="font-family:'Quicksand',sans-serif;">
-        <div class="sparkle" style="top:8%;left:10%;animation-delay:0s;"></div>
-        <div class="sparkle" style="top:15%;left:85%;animation-delay:0.5s;"></div>
-        <div class="sparkle" style="top:40%;left:5%;animation-delay:1s;"></div>
-        <div class="sparkle" style="top:80%;left:15%;animation-delay:0.8s;"></div>
-
+        
         <div id="view-invite" class="min-h-full flex flex-col items-center justify-center px-4 py-8 relative text-center">
-            <div class="crown-bounce mb-2 fade-up" style="animation-delay:0.1s;">
-                <svg width="80" height="60" viewBox="0 0 80 60" fill="none"><path d="M5 50L15 15L28 35L40 5L52 35L65 15L75 50H5Z" fill="#FFD700" stroke="#e6a800" stroke-width="2" /> <circle cx="40" cy="3" r="5" fill="#FF1493" /><rect x="5" y="48" width="70" height="8" rx="3" fill="#FFD700" stroke="#e6a800" stroke-width="1" /></svg>
-            </div>
-            <p class="text-pink-400 font-semibold tracking-widest uppercase text-sm fade-up mb-1" style="animation-delay:0.2s;">Estás invitado a la fiesta de</p>
-            <h1 class="fade-up mb-1" style="font-family:'Great Vibes',cursive; color:#e91e90; font-size:3.5rem; animation-delay:0.3s;">Mariel</h1>
-            <p class="text-pink-300 text-lg fade-up mb-8" style="animation-delay:0.35s;">👑 Fiesta de Princesas 👑</p>
+            <p class="text-pink-400 font-semibold tracking-widest uppercase text-sm fade-up mb-1" style="animation-delay:0.1s;">Estás invitado a la fiesta de</p>
+            <h1 class="fade-up mb-1" style="font-family:'Great Vibes',cursive; color:#e91e90; font-size:4rem; animation-delay:0.2s;">Mariel</h1>
+            <p class="text-pink-300 text-lg fade-up mb-10" style="animation-delay:0.3s;">👑 Fiesta de Princesas 👑</p>
 
-            <div class="flex gap-12 mb-8 fade-up" style="animation-delay:0.4s;">
-                <div class="princess-container gentle-float" style="animation-delay: 0s;">
-                    <div class="absolute -inset-2 rounded-full bg-yellow-100 blur-xl glow-pulse"></div>
-                    <div class="absolute w-2 h-2 rounded-full bg-yellow-500 particle" style="top: 40px; left: 40px; animation-delay: -1s;"></div>
-                    <img src="https://img.icons8.com/color/144/princess-belle.png" alt="Bella" width="80" height="80" class="relative z-10 mx-auto">
-                    <span class="block text-xs text-pink-400 font-semibold mt-2">Bella</span>
+            <div class="flex gap-8 mb-10 fade-up justify-center w-full" style="animation-delay:0.4s;">
+                
+                <div class="princess-container gentle-float">
+                    <div class="absolute inset-0 bg-yellow-200/40 rounded-full blur-xl glow-pulse"></div>
+                    <div class="absolute w-2 h-2 rounded-full bg-yellow-500 particle"></div>
+                    <div class="relative z-10 text-yellow-600 bg-white/50 p-4 rounded-full border border-yellow-200 shadow-sm">
+                        <i data-lucide="crown" class="w-10 h-10"></i>
+                    </div>
+                    <span class="block text-xs text-pink-400 font-bold mt-2 uppercase tracking-tighter">Bella</span>
                 </div>
 
                 <div class="princess-container gentle-float" style="animation-delay: 1.5s;">
-                    <div class="absolute -inset-2 rounded-full bg-blue-100 blur-xl glow-pulse" style="animation-delay: -2s;"></div>
-                    <div class="absolute w-2 h-2 rounded-full bg-blue-400 particle" style="top: 40px; left: 40px; animation-delay: -4s;"></div>
-                    <img src="https://img.icons8.com/color/144/cinderella.png" alt="Cenicienta" width="80" height="80" class="relative z-10 mx-auto">
-                    <span class="block text-xs text-pink-400 font-semibold mt-2">Cenicienta</span>
+                    <div class="absolute inset-0 bg-blue-200/40 rounded-full blur-xl glow-pulse" style="animation-delay: -2s;"></div>
+                    <div class="absolute w-2 h-2 rounded-full bg-blue-500 particle" style="animation-delay: -3s;"></div>
+                    <div class="relative z-10 text-blue-500 bg-white/50 p-4 rounded-full border border-blue-100 shadow-sm">
+                        <i data-lucide="sparkles" class="w-10 h-10"></i>
+                    </div>
+                    <span class="block text-xs text-pink-400 font-bold mt-2 uppercase tracking-tighter">Cenicienta</span>
                 </div>
             </div>
 
-            <div class="princess-card rounded-3xl p-6 max-w-sm w-full shadow-lg fade-up mb-6 border-pink-200" style="animation-delay:0.5s;">
+            <div class="princess-card rounded-3xl p-6 max-w-sm w-full shadow-xl fade-up mb-8 border-pink-200" style="animation-delay:0.5s;">
                 <div class="space-y-4">
                     <div class="flex items-center justify-center gap-3 text-pink-600">
-                        <i data-lucide="calendar" class="w-5 h-5"></i> <span class="font-bold">23 de Mayo</span>
+                        <i data-lucide="calendar" class="w-5 h-5"></i> <span class="font-bold text-lg">23 de Mayo</span>
                     </div>
                     <div class="flex items-center justify-center gap-3 text-pink-600">
-                        <i data-lucide="clock" class="w-5 h-5"></i> <span class="font-bold">1:00 PM</span>
+                        <i data-lucide="clock" class="w-5 h-5"></i> <span class="font-bold text-lg">1:00 PM</span>
                     </div>
                     <div class="flex items-center justify-center gap-3 text-pink-600">
-                        <i data-lucide="map-pin" class="w-5 h-5"></i> <span class="font-bold">Rancho La Chula</span>
+                        <i data-lucide="map-pin" class="w-5 h-5"></i> <span class="font-bold text-lg">Rancho La Chula</span>
                     </div>
-                    <div class="pt-3 mt-1 border-t border-pink-100">
-                        <div class="flex items-center justify-center gap-2 text-pink-500">
-                            <i data-lucide="sparkles" class="w-4 h-4"></i>
-                            <p class="text-sm font-medium italic">¡Puedes venir caracterizado de tu película favorita de Disney!</p>
-                            <i data-lucide="sparkles" class="w-4 h-4"></i>
-                        </div>
+                    <div class="pt-4 mt-2 border-t border-pink-100">
+                        <p class="text-pink-500 text-sm font-medium italic">✨ ¡Puedes venir caracterizado de tu personaje favorito de Disney! ✨</p>
                     </div>
                 </div>
             </div>
 
-            <button onclick="showForm()" class="btn-princess text-white font-bold py-4 px-10 rounded-full text-lg fade-up" style="animation-delay:0.6s;"> ✨ Confirmar Asistencia ✨ </button>
+            <button onclick="showForm()" class="btn-princess text-white font-bold py-4 px-12 rounded-full text-xl shadow-lg transition-all active:scale-95 fade-up" style="animation-delay:0.6s;">
+                Confirmar Asistencia
+            </button>
         </div>
 
         <div id="view-form" class="min-h-full flex flex-col items-center justify-center px-4 py-8 hidden">
-            <h2 class="text-pink-600 mb-6 text-center" style="font-family:'Great Vibes',cursive; font-size:2.5rem;">Confirmar Asistencia</h2>
-            <div class="princess-card rounded-3xl p-6 max-w-sm w-full shadow-lg space-y-5">
+            <h2 class="text-pink-600 mb-6 text-center" style="font-family:'Great Vibes',cursive; font-size:3rem;">Registro Real</h2>
+            <div class="princess-card rounded-3xl p-6 max-w-sm w-full shadow-lg space-y-6">
                 <div>
-                    <label class="block text-pink-600 font-semibold mb-1 text-sm">Tu Nombre</label>
-                    <input type="text" id="guest-name" placeholder="Escribe tu nombre" class="input-princess w-full rounded-xl px-4 py-3 text-gray-700 bg-white">
+                    <label class="block text-pink-600 font-bold mb-2 text-sm uppercase tracking-wider">Tu Nombre</label>
+                    <input type="text" id="guest-name" placeholder="Ej. Familia Trujillo" class="w-full rounded-xl px-4 py-4 text-gray-700 bg-white border-2 border-pink-100 focus:border-pink-500 outline-none transition-all">
                 </div>
                 
-                <div class="flex flex-col gap-4">
-                    <div class="flex justify-between items-center">
-                        <span class="text-pink-600 font-semibold">👨‍👩‍👧 Adultos</span>
-                        <div class="flex items-center gap-3">
-                            <button class="counter-btn" onclick="changeCount('adults', -1)">-</button>
-                            <span id="count-adults" class="font-bold text-pink-600 w-4 text-center">1</span>
-                            <button class="counter-btn" onclick="changeCount('adults', 1)">+</button>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center bg-pink-50/50 p-3 rounded-2xl">
+                        <span class="text-pink-700 font-bold">👨‍👩‍👧 Adultos</span>
+                        <div class="flex items-center gap-4">
+                            <button class="counter-btn shadow-sm" onclick="changeCount('adults', -1)">-</button>
+                            <span id="count-adults" class="font-black text-pink-600 text-xl w-6 text-center">1</span>
+                            <button class="counter-btn shadow-sm" onclick="changeCount('adults', 1)">+</button>
                         </div>
                     </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-pink-600 font-semibold">👦 Niños</span>
-                        <div class="flex items-center gap-3">
-                            <button class="counter-btn" onclick="changeCount('boys', -1)">-</button>
-                            <span id="count-boys" class="font-bold text-pink-600 w-4 text-center">0</span>
-                            <button class="counter-btn" onclick="changeCount('boys', 1)">+</button>
+                    <div class="flex justify-between items-center bg-blue-50/30 p-3 rounded-2xl">
+                        <span class="text-blue-700 font-bold">👦 Niños</span>
+                        <div class="flex items-center gap-4">
+                            <button class="counter-btn" style="color:#3b82f6; border-color:#dbeafe" onclick="changeCount('boys', -1)">-</button>
+                            <span id="count-boys" class="font-black text-blue-500 text-xl w-6 text-center">0</span>
+                            <button class="counter-btn" style="color:#3b82f6; border-color:#dbeafe" onclick="changeCount('boys', 1)">+</button>
                         </div>
                     </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-pink-600 font-semibold">👧 Niñas</span>
-                        <div class="flex items-center gap-3">
+                    <div class="flex justify-between items-center bg-pink-50/30 p-3 rounded-2xl">
+                        <span class="text-pink-500 font-bold">👧 Niñas</span>
+                        <div class="flex items-center gap-4">
                             <button class="counter-btn" onclick="changeCount('girls', -1)">-</button>
-                            <span id="count-girls" class="font-bold text-pink-600 w-4 text-center">0</span>
+                            <span id="count-girls" class="font-black text-pink-500 text-xl w-6 text-center">0</span>
                             <button class="counter-btn" onclick="changeCount('girls', 1)">+</button>
                         </div>
                     </div>
                 </div>
 
-                <button onclick="sendWhatsApp()" class="btn-princess text-white font-bold py-3 px-6 rounded-full w-full text-lg"> 💌 Enviar Confirmación </button>
-                <button onclick="showInvite()" class="text-pink-400 text-sm underline w-full text-center">← Volver</button>
+                <button onclick="sendWhatsApp()" class="btn-princess text-white font-bold py-4 px-6 rounded-full w-full text-lg shadow-md"> 💌 Enviar a WhatsApp </button>
+                <button onclick="showInvite()" class="text-pink-400 text-sm font-bold w-full text-center hover:text-pink-600 transition-colors">← Regresar</button>
             </div>
         </div>
     </div>
@@ -145,6 +132,7 @@
         function showForm() {
             document.getElementById('view-invite').classList.add('hidden');
             document.getElementById('view-form').classList.remove('hidden');
+            window.scrollTo(0,0);
         }
 
         function showInvite() {
@@ -161,7 +149,7 @@
         function sendWhatsApp() {
             const name = document.getElementById('guest-name').value.trim();
             if (!name) {
-                alert('Por favor escribe tu nombre 💕');
+                alert('Por favor escribe tu nombre para la lista real 👸');
                 return;
             }
 
@@ -172,11 +160,9 @@
             if (counts.boys > 0) msg += `👦 Niños: *${counts.boys}*\n`;
             if (counts.girls > 0) msg += `👧 Niñas: *${counts.girls}*\n`;
             msg += `\n✨ Total: *${counts.adults + counts.boys + counts.girls}*\n`;
-            msg += `\n🏰 ¡Iremos listos para la magia! (Y tal vez caracterizados 🎭)`;
-            msg += `\n\n¡Ahí estaremos! 💖`;
+            msg += `\n🏰 ¡Iremos caracterizados para la ocasión! 🎭\n\n¡Ahí estaremos! 💖`;
 
-            const url = `https://wa.me/${myPhone}?text=${encodeURIComponent(msg)}`;
-            window.open(url, '_blank');
+            window.open(`https://wa.me/${myPhone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
         lucide.createIcons();
