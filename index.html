@@ -3,86 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitación Real - Mariel</title>
+    <title>Invitación Real Mágica - Mariel</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         html, body {
             cursor: url('https://img.icons8.com/fluency/32/magic-wand.png'), auto;
-            overflow: hidden;
+            overflow-x: hidden;
             height: 100%;
-            background: #fdf2f8;
         }
         
-        /* Estela del mouse mejorada */
         .magic-trail {
             position: fixed;
             width: 10px; height: 10px;
             background: radial-gradient(circle, #fff, #ff6fb5);
             border-radius: 50%;
             pointer-events: none;
-            box-shadow: 0 0 10px #ff6fb5;
-            animation: trailFade 0.6s ease-out forwards;
+            box-shadow: 0 0 15px #ff6fb5;
+            animation: trailFade 0.7s ease-out forwards;
             z-index: 9999;
         }
         @keyframes trailFade { 0% { opacity: 1; transform: scale(1.2); } 100% { opacity: 0; transform: scale(0); } }
 
-        /* Estrellas cayendo más mágicas */
         .sparkle-particle {
             position: fixed;
             pointer-events: none;
             z-index: 9998;
             animation: sparkleFall linear forwards;
-            filter: drop-shadow(0 0 5px gold);
         }
         @keyframes sparkleFall {
-            0% { transform: translateY(-20px) scale(0); opacity: 0; }
-            20% { opacity: 1; transform: translateY(10vh) scale(1); }
-            100% { transform: translateY(105vh) scale(0.5); opacity: 0; }
+            0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
         }
 
-        .princess-card { backdrop-filter: blur(15px); background-color: rgba(255, 255, 255, 0.85); border: 1.5px solid rgba(249, 168, 212, 0.4); box-shadow: 0 15px 35px rgba(233, 30, 144, 0.1); }
-        
-        .btn-magic {
-            background: linear-gradient(135deg, #f472b6, #db2777);
-            box-shadow: 0 4px 15px rgba(219, 39, 119, 0.3);
-            transition: all 0.3s;
-        }
-        .btn-magic:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(219, 39, 119, 0.5); }
-
+        .princess-card { backdrop-filter: blur(12px); background-color: rgba(255, 255, 255, 0.85); border: 1px solid rgba(249, 168, 212, 0.4); }
+        .btn-princess { background: linear-gradient(135deg, #e91e90, #ff6fb5); box-shadow: 0 4px 20px rgba(233,30,144,0.4); }
         .castle-bg { background: linear-gradient(180deg, #fce4f3 0%, #fdf2f8 30%, #fff5fc 100%); }
-        .fade-up { animation: fadeUp 1s ease-out forwards; opacity:0; }
-        @keyframes fadeUp { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)} }
+        
+        @keyframes gentleFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        .gentle-float { animation: gentleFloat 3s ease-in-out infinite; }
+        .fade-up { animation: fadeUp 0.8s ease-out forwards; opacity:0; }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
         
         .counter-btn {
-            width:35px; height:35px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-            border:1px solid #f0c4e0; background:#fff; color:#db2777; font-weight: bold;
-        }
-
-        /* Botón Mute */
-        .mute-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 10000;
-            background: white;
-            padding: 10px;
-            border-radius: 50%;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            color: #db2777;
-            cursor: pointer;
+            width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+            border:1px solid #f0c4e0; background:#fff; color:#e91e90; font-weight: bold;
         }
     </style>
 </head>
 <body class="h-full castle-bg">
 
-    <div id="muteBtn" class="mute-btn">
-        <i data-lucide="volume-2" id="muteIcon"></i>
-    </div>
-
     <audio id="bgMusic" loop>
-        <source src="https://assets.mixkit.co/active_storage/sfx/123/123-preview.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/audio/2022/01/21/audio_3107073289.mp3" type="audio/mpeg">
     </audio>
     <audio id="magicSound">
         <source src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" type="audio/mpeg">
@@ -90,70 +64,70 @@
 
     <div id="app" class="w-full h-full overflow-auto relative">
         <div id="view-invite" class="min-h-full flex flex-col items-center justify-center px-4 py-8 text-center relative z-10">
-            <p class="text-pink-400 font-bold tracking-widest uppercase text-xs fade-up mb-2">Una invitación real para</p>
-            <h1 class="fade-up mb-2" style="font-family:'Great Vibes',cursive; color:#db2777; font-size:5rem; text-shadow: 2px 2px 8px rgba(219,39,119,0.15);">Mariel</h1>
-            <p class="text-pink-400 text-xl fade-up mb-12">✨ ¡Estás invitado a mi fiesta! ✨</p>
+            <p class="text-pink-400 font-semibold tracking-widest uppercase text-sm fade-up mb-1" style="animation-delay:0.1s;">Estás invitado a la fiesta de</p>
+            <h1 class="fade-up mb-1" style="font-family:'Great Vibes',cursive; color:#e91e90; font-size:4.5rem; animation-delay:0.2s;">Mariel</h1>
+            <p class="text-pink-300 text-lg fade-up mb-10" style="animation-delay:0.3s;">👑 Fiesta de Princesas 👑</p>
 
-            <div class="princess-card rounded-[2.5rem] p-8 max-w-sm w-full fade-up mb-12" style="animation-delay:0.3s;">
-                <div class="space-y-6">
-                    <div class="flex items-center justify-center gap-4 text-pink-600">
-                        <i data-lucide="calendar" class="w-6 h-6"></i> <span class="font-bold text-2xl">23 de Mayo</span>
+            <div class="princess-card rounded-3xl p-6 max-w-sm w-full shadow-2xl fade-up mb-10 border border-pink-100" style="animation-delay:0.4s;">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-center gap-3 text-pink-600">
+                        <i data-lucide="calendar"></i> <span class="font-bold text-xl">23 de Mayo</span>
                     </div>
-                    <div class="flex items-center justify-center gap-4 text-pink-600">
-                        <i data-lucide="clock" class="w-6 h-6"></i> <span class="font-bold text-2xl">1:00 PM</span>
+                    <div class="flex items-center justify-center gap-3 text-pink-600">
+                        <i data-lucide="clock"></i> <span class="font-bold text-xl">1:00 PM</span>
                     </div>
-                    <div class="flex items-center justify-center gap-4 text-pink-600">
-                        <i data-lucide="map-pin" class="w-6 h-6"></i> <span class="font-bold text-xl">Rancho La Chula</span>
+                    <div class="flex items-center justify-center gap-3 text-pink-600">
+                        <i data-lucide="map-pin"></i> <span class="font-bold text-xl">Rancho La Chula</span>
                     </div>
-                    <div class="pt-4 border-t border-pink-100">
-                        <p class="text-pink-500 font-medium italic">¡Ven caracterizado de Disney! 🎭</p>
-                    </div>
+                    <p class="text-pink-500 text-sm italic border-t border-pink-100 pt-3">✨ ¡Ven caracterizado de Disney! ✨</p>
                 </div>
             </div>
 
-            <button id="rsvpButton" class="btn-magic text-white font-bold py-5 px-16 rounded-full text-2xl fade-up active:scale-95" style="animation-delay:0.5s;">
+            <button id="rsvpButton" class="btn-princess text-white font-bold py-5 px-14 rounded-full text-2xl transition-all active:scale-95 fade-up" style="animation-delay:0.5s;">
                 Confirmar Asistencia
             </button>
-            <p class="mt-4 text-pink-300 text-xs animate-bounce italic">Toca para activar la magia 🎵</p>
         </div>
 
         <div id="view-form" class="min-h-full flex flex-col items-center justify-center px-4 py-8 hidden relative z-10">
-            <div class="princess-card rounded-[2.5rem] p-8 max-w-sm w-full space-y-6">
-                <h2 class="text-pink-600 text-center" style="font-family:'Great Vibes',cursive; font-size:3.5rem;">Registro Real</h2>
+            <div class="princess-card rounded-3xl p-7 max-w-sm w-full shadow-lg space-y-6">
+                <h2 class="text-pink-600 text-center" style="font-family:'Great Vibes',cursive; font-size:3rem;">Registro Real</h2>
                 
-                <input type="text" id="guest-name" placeholder="Nombre de tu familia" class="w-full rounded-2xl px-5 py-4 border-2 border-pink-100 outline-none focus:border-pink-500 text-gray-700 bg-white">
+                <div>
+                    <label class="block text-pink-400 text-sm font-bold mb-2">TU NOMBRE</label>
+                    <input type="text" id="guest-name" placeholder="Ej. Familia Trujillo" class="w-full rounded-xl px-4 py-4 border-2 border-pink-100 outline-none focus:border-pink-500 text-gray-700">
+                </div>
                 
                 <div class="space-y-4">
-                    <div class="flex justify-between items-center bg-pink-50/50 p-4 rounded-2xl">
+                    <div class="flex justify-between items-center bg-pink-50/50 p-3 rounded-2xl">
                         <span class="font-bold text-pink-700">👨‍👩‍👧 Adultos</span>
-                        <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-3">
                             <button class="counter-btn" onclick="changeCount('adults', -1)">-</button>
-                            <span id="count-adults" class="font-bold text-pink-600 text-xl w-6 text-center">1</span>
+                            <span id="count-adults" class="font-bold text-pink-600 w-4 text-center">1</span>
                             <button class="counter-btn" onclick="changeCount('adults', 1)">+</button>
                         </div>
                     </div>
-                    <div class="flex justify-between items-center bg-blue-50/40 p-4 rounded-2xl">
+                    <div class="flex justify-between items-center bg-blue-50/30 p-3 rounded-2xl">
                         <span class="font-bold text-blue-700">👦 Niños</span>
-                        <div class="flex items-center gap-4">
-                            <button class="counter-btn" style="color:#3b82f6" onclick="changeCount('boys', -1)">-</button>
-                            <span id="count-boys" class="font-bold text-blue-500 text-xl w-6 text-center">0</span>
-                            <button class="counter-btn" style="color:#3b82f6" onclick="changeCount('boys', 1)">+</button>
+                        <div class="flex items-center gap-3">
+                            <button class="counter-btn" style="color:#3b82f6; border-color:#dbeafe" onclick="changeCount('boys', -1)">-</button>
+                            <span id="count-boys" class="font-bold text-blue-500 w-4 text-center">0</span>
+                            <button class="counter-btn" style="color:#3b82f6; border-color:#dbeafe" onclick="changeCount('boys', 1)">+</button>
                         </div>
                     </div>
-                    <div class="flex justify-between items-center bg-pink-50/40 p-4 rounded-2xl">
+                    <div class="flex justify-between items-center bg-pink-50/30 p-3 rounded-2xl">
                         <span class="font-bold text-pink-500">👧 Niñas</span>
-                        <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-3">
                             <button class="counter-btn" onclick="changeCount('girls', -1)">-</button>
-                            <span id="count-girls" class="font-bold text-pink-500 text-xl w-6 text-center">0</span>
+                            <span id="count-girls" class="font-bold text-pink-500 w-4 text-center">0</span>
                             <button class="counter-btn" onclick="changeCount('girls', 1)">+</button>
                         </div>
                     </div>
                 </div>
 
-                <button id="sendWspButton" class="btn-magic text-white font-bold py-5 rounded-full w-full text-xl">
-                    Confirmar por WhatsApp
+                <button id="sendWspButton" class="btn-princess text-white font-bold py-4 rounded-full w-full text-xl flex items-center justify-center gap-2">
+                    💌 Confirmar por WhatsApp
                 </button>
-                <button onclick="showInvite()" class="text-pink-400 text-sm font-bold w-full text-center">← Regresar</button>
+                <button onclick="showInvite()" class="text-pink-400 text-sm w-full">← Regresar</button>
             </div>
         </div>
     </div>
@@ -161,46 +135,22 @@
     <script>
         const counts = { adults: 1, boys: 0, girls: 0 };
         const myPhone = "522281276797";
-        const bgMusic = document.getElementById('bgMusic');
-        const magicSound = document.getElementById('magicSound');
-        const muteBtn = document.getElementById('muteBtn');
-        const muteIcon = document.getElementById('muteIcon');
-        let audioIniciado = false;
-        let isMuted = false;
 
-        // ACTIVACIÓN DE AUDIO
-        document.addEventListener('click', () => {
-            if (!audioIniciado) {
-                bgMusic.play();
-                bgMusic.volume = 0.5;
-                audioIniciado = true;
-            }
-        }, { once: true });
-
-        // LÓGICA MUTE
-        muteBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // Evita que el clic active otras cosas
-            isMuted = !isMuted;
-            bgMusic.muted = isMuted;
-            magicSound.muted = isMuted;
-            muteIcon.setAttribute('data-lucide', isMuted ? 'volume-x' : 'volume-2');
-            lucide.createIcons();
-        });
-
-        // Partículas cayendo
+        // Estrellas cayendo
         function createSparkle() {
             const sparkle = document.createElement('div');
             sparkle.className = 'sparkle-particle';
-            sparkle.innerHTML = ['✨', '✦', '⭐'][Math.floor(Math.random() * 3)];
+            const chars = ['✨', '✦', '⭐', '•'];
+            sparkle.innerHTML = chars[Math.floor(Math.random() * chars.length)];
             sparkle.style.left = Math.random() * 100 + 'vw';
             sparkle.style.top = '-20px';
-            sparkle.style.fontSize = (Math.random() * 20 + 10) + 'px';
-            sparkle.style.animationDuration = (Math.random() * 4 + 3) + 's';
             sparkle.style.color = ['#fff', '#ffd700', '#ff6fb5'][Math.floor(Math.random() * 3)];
+            sparkle.style.fontSize = (Math.random() * 15 + 10) + 'px';
+            sparkle.style.animationDuration = (Math.random() * 3 + 2) + 's';
             document.body.appendChild(sparkle);
-            setTimeout(() => sparkle.remove(), 6000);
+            setTimeout(() => sparkle.remove(), 5000);
         }
-        setInterval(createSparkle, 300);
+        setInterval(createSparkle, 200);
 
         // Estela del mouse
         document.addEventListener('mousemove', (e) => {
@@ -209,16 +159,24 @@
             trail.style.left = e.clientX + 'px';
             trail.style.top = e.clientY + 'px';
             document.body.appendChild(trail);
-            setTimeout(() => trail.remove(), 600);
+            setTimeout(() => trail.remove(), 700);
         });
 
-        // Navegación
+        const magicSound = document.getElementById('magicSound');
+        const bgMusic = document.getElementById('bgMusic');
+        let musicStarted = false;
+
         document.getElementById('rsvpButton').addEventListener('click', () => {
             magicSound.play();
+            if (!musicStarted) {
+                bgMusic.volume = 0.4;
+                bgMusic.play();
+                musicStarted = true;
+            }
             setTimeout(() => {
                 document.getElementById('view-invite').classList.add('hidden');
                 document.getElementById('view-form').classList.remove('hidden');
-            }, 400);
+            }, 500);
         });
 
         function showInvite() {
@@ -234,15 +192,15 @@
 
         document.getElementById('sendWspButton').addEventListener('click', () => {
             const name = document.getElementById('guest-name').value.trim();
-            if(!name) return alert("Escribe tu nombre para el registro real 👸");
+            if(!name) return alert("Por favor, escribe tu nombre 💕");
             
-            let msg = `🎀 *Confirmación Real* 🎀\n\n`;
+            let msg = `🎀 *Confirmación Mágica* 🎀\n\n`;
             msg += `👑 Fiesta de *Mariel*\n`;
             msg += `📝 Nombre: *${name}*\n`;
             msg += `👨‍👩‍👧 Adultos: *${counts.adults}*\n`;
             if(counts.boys > 0) msg += `👦 Niños: *${counts.boys}*\n`;
             if(counts.girls > 0) msg += `👧 Niñas: *${counts.girls}*\n`;
-            msg += `\n¡Ahí estaremos caracterizados! 🏰✨`;
+            msg += `\n¡Ahí estaremos! 🏰✨`;
             
             window.open(`https://wa.me/${myPhone}?text=${encodeURIComponent(msg)}`);
         });
